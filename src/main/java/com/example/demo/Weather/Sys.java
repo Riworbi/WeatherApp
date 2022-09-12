@@ -2,6 +2,9 @@ package com.example.demo.Weather;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.ToString;
+
+@ToString
 public class Sys {
 	@JsonProperty("type")
 	public int getType() {

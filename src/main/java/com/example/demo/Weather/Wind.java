@@ -2,6 +2,9 @@ package com.example.demo.Weather;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import lombok.ToString;
+
+@ToString
 public class Wind {
 	@JsonProperty("speed")
 	public double getSpeed() {
