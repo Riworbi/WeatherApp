@@ -32,6 +32,7 @@ public class WeatherService {
 	public RestTemplate template() {
 		return new RestTemplate();
 	}
+
 	@Bean
 	public WeatherMainClass Weather() {
 		return new WeatherMainClass();
@@ -39,6 +40,10 @@ public class WeatherService {
 
 	public List<City> findAll() {
 		return cityRepository.findAll();
+	}
+
+	public double KelvinToCelcius(double Kelvin) {
+		return Kelvin - 273.15;
 	}
 
 	private City CheckIfCityIsAvailible(List<City> cities, String city) {
@@ -50,11 +55,14 @@ public class WeatherService {
 		return null;
 	}
 
-	public WeatherMainClass getWeatherObjectOfCertainCity(String city) throws JsonMappingException, JsonProcessingException {
+	public WeatherMainClass getWeatherObjectOfCertainCity(String city)
+			throws JsonMappingException, JsonProcessingException {
 		String JSON = getJSONofCity(city);
 		return mapper.readValue(JSON, WeatherMainClass.class);
 	}
-	
+
+ 
+
 	public String getJSONofCity(String City) {
 		List<City> cities = cityRepository.findAll();
 		City city = CheckIfCityIsAvailible(cities, City);

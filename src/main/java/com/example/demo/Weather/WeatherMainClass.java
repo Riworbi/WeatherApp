@@ -27,6 +27,7 @@ public class WeatherMainClass {
 	String name;
 	int cod;
 
+	
 	@Bean
 	WeatherMainClassSource WeatherMain() {
 		return new WeatherMainClassSource(coord, weather, base, main, visibility, wind, clouds, dt, sys, timezone, id,
