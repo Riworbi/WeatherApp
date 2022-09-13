@@ -16,6 +16,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.Setter;
+import net.minidev.json.JSONObject;
 
 @Service
 @Setter
@@ -65,13 +66,23 @@ public class WeatherService {
 		return template().getForObject(URL, String.class);
 	}
 	
-	public String showResultsWeather(WeatherMainClass weather) {
-		return "Miasto:" +weather.getName() + " Odczuwalna:" + KelvinToCelcius(weather.getMain().getFeels_like());
+	
+	public JSONObject getJsonObjectOfWeather(WeatherMainClass weather) {
+		JSONObject jo = new JSONObject();
+		jo.put("name", weather.getName());
+		jo.put("feels_like",KelvinToCelcius( weather.getMain().getTemp()));
 		
+		return jo;
 	}
 	
-	public double KelvinToCelcius(double Kelvin) {
-		return Kelvin - 273.15;
+	
+	public String showResultsWeather(WeatherMainClass weather) {
+		return "Miasto:" +weather.getName() + " Odczuwalna:" + KelvinToCelcius(weather.getMain().getFeels_like());
+	}
+	
+	public String KelvinToCelcius(double Kelvin) {
+		String result = String.format("%.0f",Kelvin-273.15);
+		return result;
 	}
 
 }

@@ -12,6 +12,9 @@ import com.example.demo.Service.WeatherService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import net.minidev.json.JSONArray;
+import net.minidev.json.JSONObject;
+
 @RestController
 public class Controller {
 
@@ -19,14 +22,13 @@ public class Controller {
 	private WeatherService service;
 	
 	@RequestMapping(value = "/cities", method = RequestMethod.GET)
-	public String getWeather(@RequestParam List<String> miasta) throws JsonMappingException, JsonProcessingException {
+	public JSONArray getWeather(@RequestParam List<String> miasta) throws JsonMappingException, JsonProcessingException {
 
-		
-		String result = "";
+		JSONArray JSON = new JSONArray();
 		for(String miasto : miasta) {
-			result += service.showResultsWeather(service.getWeatherObjectOfCertainCity(miasto)).toString();
+			JSON.add(service.getJsonObjectOfWeather(service.getWeatherObjectOfCertainCity(miasto)));
 		}
-		return result;
+		return JSON;
 	}
 
 }
